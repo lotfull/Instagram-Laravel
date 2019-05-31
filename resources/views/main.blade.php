@@ -5,7 +5,7 @@
         @if ($posts)
             @foreach($posts as $post)
                 <div style="border: 1px solid; margin-bottom: 20px; padding: 1%">
-                    <h3>{{ $post->user->name }}</h3>
+                    <h3><a href="/{{ $post->user->id }}">{{ $post->user->name }}</a></h3>
                     <h1>
                         {{ $post->image }}
                     </h1>

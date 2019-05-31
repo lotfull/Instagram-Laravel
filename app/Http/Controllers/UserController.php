@@ -3,22 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Follow;
-use App\Post;
 use App\User;
 use Illuminate\Http\Request;
 
-class PostsController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(User $user)
+    public function index()
     {
-        return view('main', [
-            'posts' => $user->posts()
-        ]);
+        //
     }
 
     /**
@@ -28,13 +25,13 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('create');
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -45,23 +42,21 @@ class PostsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Post $post
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post, User $user)
+    public function show(User $user)
     {
-        return view('main', [
-            'posts' => $user->posts()
-        ]);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Post $post
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit(User $user)
     {
         //
     }
@@ -69,11 +64,11 @@ class PostsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Post $post
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -81,26 +76,33 @@ class PostsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Post $post
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy(User $user)
     {
         //
     }
 
-    public function like(Post $post)
+    public function follow(User $user)
     {
-        $post->like();
+        $user->follow();
     }
 
-    public function unlike(Post $post)
+    public function unfollow(User $user)
     {
-        $post->unlike();
+        $user->unfollow();
     }
 
-    public function comment(Post $post)
+    public function followers()
     {
-        $post->like();
+        $followers = auth()->user()->followers();
+        return view('followers', [compact('followers')]);
+    }
+
+    public function following()
+    {
+        $following = auth()->user()->following();
+        return view('followers', [compact('following')]);
     }
 }
