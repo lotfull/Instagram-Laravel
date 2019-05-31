@@ -10,6 +10,6 @@ use Faker\Generator as Faker;
 $factory->define(Follow::class, function (Faker $faker) {
     return [
         'user_id' => 1,
-        'followed_id' => $faker->unique()->numberBetween(2, User::all()->count())
+        'following_id' => $faker->unique()->numberBetween(2, User::all()->count())
     ];
 });

@@ -11,12 +11,12 @@ use Illuminate\Http\Request;
 
 function generate()
 {
-    if (User::all()->count() == 0) {
-        factory(User::class, 3)->make()->map->save();
-        factory(Post::class, 5)->make()->map->save();
+    if (User::all()->count() < 2) {
+        factory(User::class, 4)->make()->map->save();
+        factory(Post::class, 20)->make()->map->save();
         factory(Comment::class, 10)->make()->map->save();
         factory(Like::class, 3)->make()->map->save();
-        factory(Follow::class, 1)->make()->map->save();
+        factory(Follow::class, 2)->make()->map->save();
     }
 }
 
@@ -31,6 +31,7 @@ class UserController extends Controller
     {
         generate();
         $posts = auth()->check() ? auth()->user()->feed() : Post::take(10)->get();
+//        dump($posts);
         return view('main', [
             'posts' => $posts
         ]);
@@ -106,7 +107,7 @@ class UserController extends Controller
     {
         Follow::create([
             'user_id' => auth()->user(),
-            'followed_user' => $user->id
+            'following_user' => $user->id
         ]);
     }
 
@@ -119,12 +120,18 @@ class UserController extends Controller
     public function followers()
     {
         $followers = auth()->user()->followers();
-        return view('followers', [compact('followers')]);
+        return view('users', [
+            'name' => 'followers',
+            'users' => $followers
+        ]);
     }
 
     public function following()
     {
         $following = auth()->user()->following();
-        return view('followers', [compact('following')]);
+        return view('users', [
+            'name' => 'following',
+            'users' => $following
+        ]);
     }
 }

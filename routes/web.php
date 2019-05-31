@@ -29,7 +29,7 @@ Route::post('/{user}/follow', 'UserController@follow');
 Route::delete('/{user}/follow', 'UserController@unfollow');
 
 Route::get('/{user}/followers', 'UserController@followers');
-Route::get('/{user}/followed', 'UserController@followed');
+Route::get('/{user}/following', 'UserController@following');
 
 Route::resource('/posts', 'PostsController'); // create update remove post
 

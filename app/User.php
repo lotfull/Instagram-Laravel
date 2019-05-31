@@ -44,19 +44,29 @@ class User extends Authenticatable
 
     public function followers()
     { // Returns [Follow]
-        return $this->hasMany(Follow::class, 'followed_id')->get();
+        $userFollowedFollows = $this->hasMany(Follow::class, 'following_id')->get();
+        return $userFollowedFollows->map->followers();
     }
 
     public function following()
     { // Returns [Follow]
-        return $this->hasMany(Follow::class, 'user_id')->get();
+        $userFollowingFollows = $this->hasMany(Follow::class, 'user_id')->get();
+        return $userFollowingFollows->map->following();
     }
 
     public function unfollow()
     {
         Follow::destroy([
             'user_id' => auth()->user(),
-            'followed_user' => $this
+            'following_user' => $this
         ]);
+    }
+
+    public function feed()
+    {
+        $following_users_ids = $this->following()->map->id;
+        return Post::whereIn('user_id', $following_users_ids)
+            ->take(10)
+            ->get();
     }
 }
