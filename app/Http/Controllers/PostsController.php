@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Follow;
+use App\Like;
 use App\Post;
 use App\User;
 use Illuminate\Http\Request;
@@ -91,16 +93,30 @@ class PostsController extends Controller
 
     public function like(Post $post)
     {
-        $post->like();
+        Like::create([
+            'user_id' => auth()->user(),
+            'post_id' => $post->id
+        ]);
     }
 
-    public function unlike(Post $post)
+    public function unlike(Like $like)
     {
-        $post->unlike();
+        if ($like->user_id == auth()->user()->id)
+            $like->delete();
     }
 
     public function comment(Post $post)
     {
-        $post->like();
+        Comment::create([
+            'text' => request()->text,
+            'user_id' => auth()->user(),
+            'post_id' => $post->id
+        ]);
+    }
+
+    public function deleteComment(Comment $comment)
+    {
+        if ($comment->user_id == auth()->user()->id)
+            $comment->delete();
     }
 }

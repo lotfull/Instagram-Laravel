@@ -20,29 +20,4 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class)->get();
     }
-
-    public function like()
-    {
-        Like::create([
-            'user_id' => auth()->user(),
-            'post_id' => $this
-        ]);
-    }
-
-    public function unlike()
-    {
-        Like::destroy([
-            'user_id' => auth()->user(),
-            'post_id' => $this
-        ]);
-    }
-
-    public function comment($text)
-    {
-        Comment::create([
-            compact('text'),
-            'user_id' => auth()->user(),
-            'post_id' => $this
-        ]);
-    }
 }

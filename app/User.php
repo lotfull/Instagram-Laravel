@@ -52,14 +52,6 @@ class User extends Authenticatable
         return $this->hasMany(Follow::class, 'user_id')->get();
     }
 
-    public function follow()
-    {
-        Follow::create([
-            'user_id' => auth()->user(),
-            'followed_user' => $this
-        ]);
-    }
-
     public function unfollow()
     {
         Follow::destroy([

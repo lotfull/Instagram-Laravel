@@ -17,17 +17,6 @@ use App\Post;
 use App\User;
 use App\Follow;
 
-function generate()
-{
-    if (User::all()->count() == 0) {
-        factory(User::class, 2)->make()->map->save();
-        factory(Post::class, 4)->make()->map->save();
-        factory(Comment::class, 10)->make()->map->save();
-        factory(Like::class, 3)->make()->map->save();
-        factory(Follow::class, 3)->make()->map->save();
-    }
-}
-
 //Пользователь, Фото, Комментарий, Лайк, Подписка, Геолокация, Хештег
 //User, Photo(post), Comment, Like, Following, Geotag, Hashtag
 
