@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('content')
-    <form method="post" action="/posts" style="margin: 10%">
+    <form method="post" action="/posts">
         {{ csrf_field() }}
 
         <div class="field">

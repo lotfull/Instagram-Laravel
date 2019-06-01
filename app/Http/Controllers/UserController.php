@@ -59,7 +59,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('edit');
     }
 
     /**
@@ -71,7 +71,12 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        abort_if($user->id != auth()->id(), 403);
+        $user->update($request->validate([
+            'name' => ['required', 'max:50'],
+            'description' => ['required']
+        ]));
+        return redirect('/users/' . $user->id);
     }
 
     /**
@@ -88,7 +93,7 @@ class UserController extends Controller
     public function follow(User $user)
     {
         Follow::create([
-            'user_id' => auth()->user()->id,
+            'user_id' => auth()->id(),
             'following_id' => $user->id
         ]);
         return back();

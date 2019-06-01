@@ -103,7 +103,7 @@ class PostsController extends Controller
 
     public function unlike(Like $like)
     {
-        if ($like->user_id == auth()->user()->id)
+        if ($like->user_id == auth()->id())
             $like->delete();
         return back();
     }
@@ -120,7 +120,7 @@ class PostsController extends Controller
 
     public function deleteComment(Comment $comment)
     {
-        if ($comment->user_id == auth()->user()->id)
+        if ($comment->user_id == auth()->id())
             $comment->delete();
         return back();
     }

@@ -8,6 +8,7 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+{{--    <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css" rel="stylesheet" type="text/css">--}}
 
     <!-- Styles -->
     <style>
@@ -89,14 +90,16 @@
 <div class="links top left">
     <a href="/">Posts</a>
     @if (! is_null(auth()->user()))
-        <a href="/users/{{ auth()->user()->id }}">Profile</a>
+        <a href="/users/{{ auth()->id() }}">Profile</a>
         <a href="/posts/create">New Post</a>
-        <a href="/users/{{ auth()->user()->id }}/followers">Followers ({{ auth()->user()->followers()->count() }})</a>
-        <a href="/users/{{ auth()->user()->id }}/following">Following ({{ auth()->user()->following()->count() }})</a>
+        <a href="/users/{{ auth()->id() }}/followers">Followers ({{ auth()->user()->followers()->count() }})</a>
+        <a href="/users/{{ auth()->id() }}/following">Following ({{ auth()->user()->following()->count() }})</a>
     @endif
 </div>
 
+<div style="margin: 10%">
 @yield('content', 'Default Content')
+</div>
 {{--<div class="top flex-center title">@yield('title', 'Instagram')</div>--}}
 
 {{--<div class="flex-center position-ref full-height">--}}
