@@ -89,9 +89,10 @@
 <div class="links top left">
     <a href="/">Posts</a>
     @if (! is_null(auth()->user()))
+        <a href="/users/{{ auth()->user()->id }}">Profile</a>
         <a href="/posts/create">New Post</a>
-        <a href="/{{ auth()->user()->id }}/followers">Followers ({{ auth()->user()->followers()->count() }})</a>
-        <a href="/{{ auth()->user()->id }}/following">Following ({{ auth()->user()->following()->count() }})</a>
+        <a href="/users/{{ auth()->user()->id }}/followers">Followers ({{ auth()->user()->followers()->count() }})</a>
+        <a href="/users/{{ auth()->user()->id }}/following">Following ({{ auth()->user()->following()->count() }})</a>
     @endif
 </div>
 

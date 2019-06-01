@@ -38,27 +38,6 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param \App\User $user
@@ -66,8 +45,9 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('main', [
-            'posts' => $user->posts()
+        return view('user', [
+            'yo' => 'Fuck',
+            'user' => $user
         ]);
     }
 
@@ -108,32 +88,31 @@ class UserController extends Controller
     public function follow(User $user)
     {
         Follow::create([
-            'user_id' => auth()->user(),
-            'following_user' => $user->id
+            'user_id' => auth()->user()->id,
+            'following_id' => $user->id
         ]);
+        return back();
     }
 
-    public function unfollow(Follow $follow)
+    public function unfollow(User $user)
     {
-        if ($follow->user_id == auth()->user()->id)
-            $follow->delete();
+        Follow::find(auth()->user(), $user)->delete();
+        return back();
     }
 
-    public function followers()
+    public function followers(User $user)
     {
-        $followers = auth()->user()->followers();
         return view('users', [
             'name' => 'followers',
-            'users' => $followers
+            'users' => $user->followers()
         ]);
     }
 
-    public function following()
+    public function following(User $user)
     {
-        $following = auth()->user()->following();
         return view('users', [
             'name' => 'following',
-            'users' => $following
+            'users' => $user->following()
         ]);
     }
 }

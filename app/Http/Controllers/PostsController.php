@@ -93,16 +93,19 @@ class PostsController extends Controller
 
     public function like(Post $post)
     {
+        dd($post);
         Like::create([
             'user_id' => auth()->user(),
             'post_id' => $post->id
         ]);
+        return back();
     }
 
     public function unlike(Like $like)
     {
         if ($like->user_id == auth()->user()->id)
             $like->delete();
+        return back();
     }
 
     public function comment(Post $post)
@@ -112,11 +115,13 @@ class PostsController extends Controller
             'user_id' => auth()->user(),
             'post_id' => $post->id
         ]);
+        return back();
     }
 
     public function deleteComment(Comment $comment)
     {
         if ($comment->user_id == auth()->user()->id)
             $comment->delete();
+        return back();
     }
 }

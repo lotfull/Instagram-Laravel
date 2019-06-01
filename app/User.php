@@ -22,7 +22,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'description', 'email', 'password',
     ];
 
     /**
@@ -51,7 +51,7 @@ class User extends Authenticatable
     public function followers()
     { // Returns [Follow]
         $userFollowedFollows = $this->hasMany(Follow::class, 'following_id')->get();
-        return $userFollowedFollows->map->followers();
+        return $userFollowedFollows->map->follower();
     }
 
     public function following()
@@ -60,12 +60,16 @@ class User extends Authenticatable
         return $userFollowingFollows->map->following();
     }
 
-    public function unfollow()
+    public function follows(User $user)
     {
-        Follow::destroy([
-            'user_id' => auth()->user(),
-            'following_user' => $this
-        ]);
+        return Follow::find(auth()->user(), $user)->exists();
+    }
+
+    public function likes(Post $post)
+    {
+        return Like::where('user_id', auth()->user()->id)
+            ->where('post_id', $post->id)
+            ->exists();
     }
 
     public function feed()

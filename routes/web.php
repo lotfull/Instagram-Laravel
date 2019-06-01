@@ -23,14 +23,14 @@ use App\Follow;
 Auth::routes();
 Route::get('/home', 'HomeController@index');
 
-Route::post('/{user}/follow', 'UserController@follow');
-Route::delete('/{user}/follow', 'UserController@unfollow');
+Route::get('/', 'UserController@index');
+Route::resource('/users', 'UserController'); // show posts for all users, particular user, get edit profile screen, update profile
 
-Route::get('/{user}/followers', 'UserController@followers');
-Route::get('/{user}/following', 'UserController@following');
+Route::post('/users/{user}/follow', 'UserController@follow');
+Route::delete('/users/{user}/follow', 'UserController@unfollow');
 
-Route::resource('/', 'UserController'); // show posts for all users, particular user, get edit profile screen, update profile
-Route::get('/{user}', 'UserController@show'); // show posts for all users, particular user, get edit profile screen, update profile
+Route::get('/users/{user}/followers', 'UserController@followers');
+Route::get('/users/{user}/following', 'UserController@following');
 
 Route::resource('/posts', 'PostsController'); // create update remove post
 
