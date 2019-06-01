@@ -1,8 +1,8 @@
 @extends('layouts.layout')
 
 @section('content')
-    <form method="post" action="/posts">
-        {{ csrf_field() }}
+    <form method="post" action="/posts" enctype="multipart/form-data">
+        @csrf
 
         <div class="field">
             <label for="image" class="label">Image</label>
@@ -21,6 +21,7 @@
                 <button type="submit" class="button is-link">Create Project</button>
             </div>
         </div>
+
 
         {{--        @include('errors')--}}
 

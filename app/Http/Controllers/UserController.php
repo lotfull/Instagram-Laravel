@@ -13,7 +13,7 @@ function generate()
 {
     if (User::all()->count() < 2) {
         factory(User::class, 4)->make()->map->save();
-        factory(Post::class, 20)->make()->map->save();
+        factory(Post::class, 10)->make()->map->save();
         factory(Comment::class, 10)->make()->map->save();
         factory(Like::class, 3)->make()->map->save();
         factory(Follow::class, 2)->make()->map->save();
@@ -31,7 +31,6 @@ class UserController extends Controller
     {
         generate();
         $posts = auth()->check() ? auth()->user()->feed() : Post::take(10)->get();
-//        dump($posts);
         return view('main', [
             'posts' => $posts
         ]);

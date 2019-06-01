@@ -39,4 +39,3 @@ Route::delete('/posts/{post}/comment/{comment}', 'PostsController@deleteComment'
 
 Route::post('/posts/{post}/like', 'PostsController@like');
 Route::delete('/posts/{post}/like', 'PostsController@unlike');
-

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
-use App\Follow;
 use App\Like;
 use App\Post;
 use App\User;
@@ -41,7 +40,15 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attributes = $request->validate([
+            'image' => ['required', 'image'],
+            'description' => ['max: 1000']
+        ]);
+        $path = $request->file('image')->store('public/images');
+        $attributes['image'] = str_replace('public/images/', '', $path);
+        $attributes['user_id'] = auth()->id();
+        Post::create($attributes);
+        return redirect('/');
     }
 
     /**
@@ -93,28 +100,27 @@ class PostsController extends Controller
 
     public function like(Post $post)
     {
-        dd($post);
         Like::create([
-            'user_id' => auth()->user(),
+            'user_id' => auth()->id(),
             'post_id' => $post->id
         ]);
         return back();
     }
 
-    public function unlike(Like $like)
+    public function unlike(Post $post)
     {
-        if ($like->user_id == auth()->id())
-            $like->delete();
+        Like::find(auth()->user(), $post)->delete();
         return back();
     }
 
     public function comment(Post $post)
     {
-        Comment::create([
-            'text' => request()->text,
-            'user_id' => auth()->user(),
-            'post_id' => $post->id
+        $attributes = request()->validate([
+            'text' => ['required', 'max:1000']
         ]);
+        $attributes['user_id'] = auth()->id();
+        $attributes['post_id'] = $post->id;
+        Comment::create($attributes);
         return back();
     }
 

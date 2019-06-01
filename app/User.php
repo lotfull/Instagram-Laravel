@@ -67,9 +67,7 @@ class User extends Authenticatable
 
     public function likes(Post $post)
     {
-        return Like::where('user_id', auth()->id())
-            ->where('post_id', $post->id)
-            ->exists();
+        return Like::find(auth()->user(), $post)->exists();
     }
 
     public function feed()
