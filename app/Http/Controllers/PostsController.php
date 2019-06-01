@@ -15,10 +15,11 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(User $user)
+    public function index()
     {
+        $posts = auth()->check() ? auth()->user()->feed() : Post::take(10)->get();
         return view('main', [
-            'posts' => $user->posts()
+            'posts' => $posts
         ]);
     }
 

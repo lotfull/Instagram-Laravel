@@ -72,7 +72,7 @@ class User extends Authenticatable
 
     public function feed()
     {
-        $following_users_ids = $this->following()->map->id;
+        $following_users_ids = $this->following()->map->id->push(auth()->id());
         return Post::whereIn('user_id', $following_users_ids)
             ->take(10)
             ->get();

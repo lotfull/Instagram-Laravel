@@ -23,7 +23,8 @@ use App\Follow;
 Auth::routes();
 Route::get('/home', 'HomeController@index');
 
-Route::get('/', 'UserController@index');
+Route::get('/', 'PostsController@index');
+
 Route::resource('/users', 'UserController'); // show posts for all users, particular user, get edit profile screen, update profile
 
 Route::post('/users/{user}/follow', 'UserController@follow');

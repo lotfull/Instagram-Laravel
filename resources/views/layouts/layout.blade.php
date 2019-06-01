@@ -21,20 +21,6 @@
             margin: 0;
         }
 
-        .full-height {
-            height: 100vh;
-        }
-
-        .flex-center {
-            max-width: 70vh;
-            display: flex;
-            justify-content: center;
-        }
-
-        .position-ref {
-            position: relative;
-        }
-
         .top {
             position: absolute;
             top: 18px;
@@ -48,14 +34,6 @@
             left: 10px;
         }
 
-        .content {
-            text-align: center;
-        }
-
-        .title {
-            font-size: 84px;
-        }
-
         .links > a {
             color: #636b6f;
             padding: 0 25px;
@@ -64,10 +42,6 @@
             letter-spacing: .1rem;
             text-decoration: none;
             text-transform: uppercase;
-        }
-
-        .m-b-md {
-            margin-bottom: 30px;
         }
     </style>
 </head>
@@ -92,6 +66,7 @@
     @if (! is_null(auth()->user()))
         <a href="/users/{{ auth()->id() }}">Profile</a>
         <a href="/posts/create">New Post</a>
+        <a href="/users">Users ({{ App\User::count() }})</a>
         <a href="/users/{{ auth()->id() }}/followers">Followers ({{ auth()->user()->followers()->count() }})</a>
         <a href="/users/{{ auth()->id() }}/following">Following ({{ auth()->user()->following()->count() }})</a>
     @endif
