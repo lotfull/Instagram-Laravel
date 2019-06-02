@@ -1,6 +1,12 @@
 <div style="border: 1px solid; margin-bottom: 20px; padding: 1%">
     <h3><a href="/users/{{ $post->user->id }}">{{ $post->user->name }}</a></h3>
     <img src="/storage/images/{{ $post->image }}">
+    @if(auth()->id() == $post->user->id)
+        <form action="/posts/{{ $post->id }}/edit" method="get">
+            @csrf
+            <input type="submit" value="Edit Post"/>
+        </form>
+    @endif
     <br>
     <h4>{{ $post->description }}</h4>
     <label>Likes: {{ $post->likes_count() }}</label>

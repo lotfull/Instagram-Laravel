@@ -25,6 +25,6 @@
     <a href="/users/{{ $user->id }}/followers">Followers ({{ $user->followers()->count() }})</a>
     <a href="/users/{{ $user->id }}/following">Following ({{ $user->following()->count() }})</a>
     @foreach($user->posts() as $post)
-        @component('post', compact('post'))@endcomponent
+        @component('components.post', compact('post'))@endcomponent
     @endforeach
 @endsection

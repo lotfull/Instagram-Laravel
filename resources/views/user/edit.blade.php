@@ -26,4 +26,5 @@
                 <button type="submit" class="button is-link">Edit Profile</button>
             </div>
         </div>
+    </form>
 @endsection

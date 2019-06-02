@@ -30,7 +30,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('create');
+        return view('post.create');
     }
 
     /**
@@ -58,11 +58,9 @@ class PostsController extends Controller
      * @param \App\Post $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post, User $user)
+    public function show(Post $post)
     {
-        return view('main', [
-            'posts' => $user->posts()
-        ]);
+        return view('post.show', compact('post'));
     }
 
     /**
@@ -73,7 +71,7 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('post.edit', compact('post'));
     }
 
     /**
@@ -85,7 +83,10 @@ class PostsController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $post->update($request->validate([
+            'description' => ['required', 'max:500']
+        ]));
+        return redirect('/posts/' . $post->id);
     }
 
     /**

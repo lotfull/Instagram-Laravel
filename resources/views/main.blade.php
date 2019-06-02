@@ -2,6 +2,6 @@
 
 @section('content')
     @foreach($posts as $post)
-        @component('post', compact('post'))@endcomponent
+        @component('components.post', compact('post'))@endcomponent
     @endforeach
 @endsection

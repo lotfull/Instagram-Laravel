@@ -8,7 +8,6 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-{{--    <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css" rel="stylesheet" type="text/css">--}}
 
 <!-- Styles -->
     <style>
@@ -76,13 +75,5 @@
 <div style="margin: 10%">
     @yield('content', 'Default Content')
 </div>
-{{--<div class="top flex-center title">@yield('title', 'Instagram')</div>--}}
-
-{{--<div class="flex-center position-ref full-height">--}}
-
-{{--    <div class="content">--}}
-{{--        @yield('content', 'Default Content')--}}
-{{--    </div>--}}
-{{--</div>--}}
 </body>
 </html>
