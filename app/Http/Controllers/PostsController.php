@@ -8,6 +8,11 @@ use App\Post;
 use App\User;
 use Illuminate\Http\Request;
 
+function flash($message)
+{
+    session()->flash('message', $message);
+}
+
 class PostsController extends Controller
 {
     /**
@@ -17,7 +22,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = auth()->check() ? auth()->user()->feed() : Post::take(10)->get();
+        $posts = auth()->check() ? auth()->user()->feed() : Post::orderBy('created_at', 'desc')->get();
         return view('main', [
             'posts' => $posts
         ]);
@@ -49,6 +54,7 @@ class PostsController extends Controller
         $attributes['image'] = str_replace('public/images/', '', $path);
         $attributes['user_id'] = auth()->id();
         Post::create($attributes);
+        flash('Your post has been created');
         return redirect('/');
     }
 

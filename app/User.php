@@ -45,7 +45,7 @@ class User extends Authenticatable
 
     public function posts()
     {
-        return $this->hasMany(Post::class)->get();
+        return $this->hasMany(Post::class)->orderBy('created_at', 'desc')->get();
     }
 
     public function followers()
@@ -73,8 +73,6 @@ class User extends Authenticatable
     public function feed()
     {
         $following_users_ids = $this->following()->map->id->push(auth()->id());
-        return Post::whereIn('user_id', $following_users_ids)
-            ->take(10)
-            ->get();
+        return Post::whereIn('user_id', $following_users_ids)->orderBy('created_at', 'asc')->get();
     }
 }

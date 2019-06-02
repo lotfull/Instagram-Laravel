@@ -8,8 +8,20 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
-<!-- Styles -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            var fadeTarget = document.getElementById("flash");
+            fadeTarget.style.opacity = 1.0;
+            setTimeout(() => {
+                let interval = setInterval(() => {
+                    fadeTarget.style.opacity -= 0.01;
+                    if (fadeTarget.style.opacity < 0)
+                        clearInterval(interval)
+                }, 10);
+            }, 2000)
+        });
+    </script>
+    <!-- Styles -->
     <style>
         html, body {
             background-color: #fff;
@@ -42,6 +54,15 @@
             text-decoration: none;
             text-transform: uppercase;
         }
+
+        #flash {
+            padding: 16px 20px;
+            border: none;
+            opacity: 0.8;
+            position: fixed;
+            bottom: 23px;
+            right: 28px;
+        }
     </style>
 </head>
 <body>
@@ -67,13 +88,16 @@
         <a href="/users/{{ auth()->id() }}">Profile</a>
         <a href="/posts/create">New Post</a>
         <a href="/users">Users ({{ App\User::count() }})
-        <a href="/users/{{ auth()->id() }}/followers">Followers ({{ auth()->user()->followers()->count() }})</a>
-        <a href="/users/{{ auth()->id() }}/following">Following ({{ auth()->user()->following()->count() }})</a>
+            <a href="/users/{{ auth()->id() }}/followers">Followers ({{ auth()->user()->followers()->count() }})</a>
+            <a href="/users/{{ auth()->id() }}/following">Following ({{ auth()->user()->following()->count() }})</a>
     @endauth
 </div>
 
 <div style="margin: 10%">
     @yield('content', 'Default Content')
 </div>
+@if (session('message'))
+    <div id="flash">{{ session('message') }}</div>
+@endif
 </body>
 </html>

@@ -1,6 +1,7 @@
 <div style="border: 1px solid; margin-bottom: 20px; padding: 1%">
     <h3><a href="/users/{{ $post->user->id }}">{{ $post->user->name }}</a></h3>
     <img src="/storage/images/{{ $post->image }}">
+    <p>{{ $post->created_at }}</p>
     @if(auth()->id() == $post->user->id)
         <form action="/posts/{{ $post->id }}/edit" method="get">
             @csrf
